@@ -70,12 +70,13 @@ public class GeneticImage {
 
         List<ImagePart> imageParts = new ArrayList<>();
         Random random = new Random();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 75; i++) {
             ImagePart imagePart = new ImagePart();
             imagePart.setSourceX(random.nextInt(sourceImage.getWidth() - solution.getPartWidth()));
             imagePart.setSourceY(random.nextInt(sourceImage.getHeight() - solution.getPartHeight()));
             imagePart.setTargetX(random.nextInt(targetImage.getWidth() - solution.getPartWidth()));
             imagePart.setTargetY(random.nextInt(targetImage.getHeight() - solution.getPartHeight()));
+            imagePart.setRotation(random.nextInt(360));
             imageParts.add(imagePart);
         }
 
