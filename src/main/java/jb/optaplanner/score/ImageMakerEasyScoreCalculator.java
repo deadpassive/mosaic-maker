@@ -32,7 +32,7 @@ public class ImageMakerEasyScoreCalculator implements EasyScoreCalculator<ImageM
 
     public static long compareImages(BufferedImage imageA, BufferedImage imageB) {
 
-        long totalError = 0;
+        long sumSquaredError = 0;
 
         for (int x = 0; x < imageA.getWidth(); x++) {
             for (int y = 0; y < imageA.getHeight(); y++) {
@@ -51,9 +51,9 @@ public class ImageMakerEasyScoreCalculator implements EasyScoreCalculator<ImageM
                 int greenDiff = Math.abs(imageAGreen - imageBGreen);
                 int blueDiff = Math.abs(imageABlue - imageBBlue);
 
-                totalError += redDiff + greenDiff + blueDiff;
+                sumSquaredError += Math.pow((double) redDiff + greenDiff + blueDiff, 2.0);
             }
         }
-        return totalError;
+        return sumSquaredError;
     }
 }
