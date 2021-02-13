@@ -106,7 +106,7 @@ public class GeneticImage {
 
     public static double compareImages(BufferedImage imageA, BufferedImage imageB, BufferedImage differenceImage) {
 
-        double totalError = 0;
+        double sumSquaredError = 0;
 
         for (int x = 0; x < imageA.getWidth(); x++) {
             for (int y = 0; y < imageA.getHeight(); y++) {
@@ -130,10 +130,10 @@ public class GeneticImage {
                 diffRgb = (diffRgb << 8) + blueDiff;
                 differenceImage.setRGB(x, y, diffRgb);
 
-                totalError += redDiff + greenDiff + blueDiff;
+                sumSquaredError += Math.pow((double) redDiff + greenDiff + blueDiff, 2.0);
             }
         }
-        return totalError;
+        return sumSquaredError;
     }
 
 
