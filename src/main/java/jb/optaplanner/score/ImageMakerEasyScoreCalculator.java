@@ -51,6 +51,11 @@ public class ImageMakerEasyScoreCalculator implements EasyScoreCalculator<ImageM
                 int greenDiff = Math.abs(imageAGreen - imageBGreen);
                 int blueDiff = Math.abs(imageABlue - imageBBlue);
 
+//                int redDiff = (imageARed - imageBRed) * (imageARed - imageBRed);
+//                int greenDiff = (imageAGreen - imageBGreen) * (imageAGreen - imageBGreen);
+//                int blueDiff = (imageABlue - imageBBlue) * (imageABlue - imageBBlue);
+
+
                 totalError += redDiff + greenDiff + blueDiff;
             }
         }

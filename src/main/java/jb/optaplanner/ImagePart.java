@@ -21,8 +21,6 @@ public class ImagePart {
     private Integer sourceY;
     private Integer targetX;
     private Integer targetY;
-//    private int height = 20;
-//    private int width = 20;
 
     @PlanningVariable(valueRangeProviderRefs = {"sourceXRange"})
     public Integer getSourceX() {
@@ -41,22 +39,6 @@ public class ImagePart {
     public void setSourceY(Integer sourceY) {
         this.sourceY = sourceY;
     }
-
-//    public int getHeight() {
-//        return height;
-//    }
-//
-//    public void setHeight(int height) {
-//        this.height = height;
-//    }
-//
-//    public int getWidth() {
-//        return width;
-//    }
-//
-//    public void setWidth(int width) {
-//        this.width = width;
-//    }
 
     @PlanningVariable(valueRangeProviderRefs = {"targetXRange"})
     public Integer getTargetX() {

@@ -31,11 +31,21 @@
 
     <localSearch>
 <!--        <acceptor>-->
-<!--            <entityTabuSize>2</entityTabuSize>-->
+<!--            <entityTabuRatio>0.02</entityTabuRatio>-->
+<!--        </acceptor>-->
+<!--        <acceptor>-->
+<!--            <entityTabuSize>10</entityTabuSize>-->
 <!--        </acceptor>-->
         <forager>
             <acceptedCountLimit>10</acceptedCountLimit>
         </forager>
+
+<!--        <acceptor>-->
+<!--            <simulatedAnnealingStartingTemperature>2hard/1000000soft</simulatedAnnealingStartingTemperature>-->
+<!--        </acceptor>-->
+<!--        <forager>-->
+<!--            <acceptedCountLimit>1</acceptedCountLimit>-->
+<!--        </forager>-->
     </localSearch>
 
 </solver>

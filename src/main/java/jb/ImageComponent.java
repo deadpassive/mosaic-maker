@@ -24,7 +24,7 @@ public class ImageComponent extends JComponent implements ActionListener {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    Timer timer=new Timer(1000, this);
+    Timer timer=new Timer(200, this);
 
     private Image image;
     public ImageComponent(){

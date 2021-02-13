@@ -31,8 +31,8 @@ public class ImageMakerSolution {
     private BufferedImage targetImage;
     private BufferedImage sourceImage;
     private List<ImagePart> imageParts;
-    private final int partWidth = 70;
-    private final int partHeight = 70;
+    private final int partWidth = 60;
+    private final int partHeight = 60;
 
     private HardSoftLongScore score;
 

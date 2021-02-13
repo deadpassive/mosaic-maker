@@ -16,18 +16,13 @@ import jb.optaplanner.ImageMakerSolution;
 import jb.optaplanner.ImagePart;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
-import org.optaplanner.core.api.solver.event.BestSolutionChangedEvent;
-import org.optaplanner.core.api.solver.event.SolverEventListener;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBuffer;
-import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;
-import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -35,10 +30,8 @@ import java.util.Random;
 public class GeneticImage {
 
     public static void main(String[] args) throws IOException {
-        System.out.println("woop");
-
-        String targetImagePath = "C:\\Users\\jbritton\\OneDrive - Dotted Eyes Solutions Ltd T A Field Dynamics\\Pictures\\glynderw2.jpg";
-        String sourceImagePath = "C:\\Users\\jbritton\\OneDrive - Dotted Eyes Solutions Ltd T A Field Dynamics\\Pictures\\Jon_06.jpg";
+        String targetImagePath = "C:\\Users\\jbritton\\OneDrive - Dotted Eyes Solutions Ltd T A Field Dynamics\\Pictures\\Jon_06.jpg";
+        String sourceImagePath = "C:\\Users\\jbritton\\OneDrive - Dotted Eyes Solutions Ltd T A Field Dynamics\\Pictures\\pigs.jpg";
 
         BufferedImage targetImage = ImageIO.read(new File(targetImagePath));
         BufferedImage sourceImage = ImageIO.read(new File(sourceImagePath));
@@ -82,7 +75,7 @@ public class GeneticImage {
 
         List<ImagePart> imageParts = new ArrayList<>();
         Random random = new Random();
-        for (int i = 0; i < 300; i++) {
+        for (int i = 0; i < 200; i++) {
             ImagePart imagePart = new ImagePart();
             imagePart.setSourceX(random.nextInt(sourceImage.getWidth() - solution.getPartWidth()));
             imagePart.setSourceY(random.nextInt(sourceImage.getHeight() - solution.getPartHeight()));
