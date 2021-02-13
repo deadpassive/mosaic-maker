@@ -22,6 +22,8 @@ import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
@@ -31,8 +33,8 @@ public class ImageMakerSolution {
     private BufferedImage targetImage;
     private BufferedImage sourceImage;
     private List<ImagePart> imageParts;
-    private final int partWidth = 60;
-    private final int partHeight = 60;
+    private final int partWidth = 100;
+    private final int partHeight = 100;
 
     private HardSoftLongScore score;
 
@@ -59,22 +61,27 @@ public class ImageMakerSolution {
 
     @ValueRangeProvider(id = "sourceXRange")
     public CountableValueRange<Integer> getSourceXRange() {
-        return ValueRangeFactory.createIntValueRange(0, sourceImage.getWidth() - partWidth);
+        return ValueRangeFactory.createIntValueRange(0, sourceImage.getWidth());
     }
 
     @ValueRangeProvider(id = "sourceYRange")
     public CountableValueRange<Integer> getSourceYRange() {
-        return ValueRangeFactory.createIntValueRange(0, sourceImage.getHeight() - partHeight);
+        return ValueRangeFactory.createIntValueRange(0, sourceImage.getHeight());
     }
 
     @ValueRangeProvider(id = "targetXRange")
     public CountableValueRange<Integer> getTargetXRange() {
-        return ValueRangeFactory.createIntValueRange(0, targetImage.getWidth() - partWidth);
+        return ValueRangeFactory.createIntValueRange(0, targetImage.getWidth());
     }
 
     @ValueRangeProvider(id = "targetYRange")
     public CountableValueRange<Integer> getTargetYRange() {
-        return ValueRangeFactory.createIntValueRange(0, targetImage.getHeight() - partHeight);
+        return ValueRangeFactory.createIntValueRange(0, targetImage.getHeight());
+    }
+
+    @ValueRangeProvider(id = "rotationRange")
+    public CountableValueRange<Integer> getRotationRange() {
+        return ValueRangeFactory.createIntValueRange(0, 360);
     }
 
     public void setScore(HardSoftLongScore score) {
@@ -105,7 +112,24 @@ public class ImageMakerSolution {
 
         getImageParts().stream().filter(ImagePart::isFullyInitialised).forEach(imagePart -> {
             BufferedImage cropped = cropImage(sourceImage, imagePart);
-            g.drawImage(cropped, imagePart.getTargetX(), imagePart.getTargetY(), null);
+
+            // The required drawing location
+            int drawLocationX = imagePart.getTargetX() - (cropped.getWidth() / 2);
+            int drawLocationY = imagePart.getTargetY() - (cropped.getHeight() / 2);
+
+            double angle = Math.toRadians(imagePart.getRotation());
+
+            AffineTransform backup = g.getTransform();
+
+            AffineTransform a = AffineTransform.getRotateInstance(angle, imagePart.getTargetX(), imagePart.getTargetY());
+            g.setTransform(a);
+
+            g.drawImage(cropped, drawLocationX, drawLocationY, null);
+
+//            g.setColor(Color.red);
+//            g.drawRect(imagePart.getTargetX() - cropped.getWidth() / 2, imagePart.getTargetY() - cropped.getHeight() / 2, cropped.getWidth(), cropped.getHeight());
+
+            g.setTransform(backup);
         });
 
         g.dispose();
@@ -120,8 +144,13 @@ public class ImageMakerSolution {
         g.drawImage(sourceImage, 0, 0, null);
 
         getImageParts().stream().filter(ImagePart::isFullyInitialised).forEach(imagePart -> {
+            int minX = Math.max(imagePart.getSourceX(), 0);
+            int maxX = Math.min(imagePart.getSourceX() + partWidth, sourceImage.getWidth());
+            int minY = Math.max(imagePart.getSourceY(), 0);
+            int maxY = Math.min(imagePart.getSourceY() + partHeight, sourceImage.getHeight());
+
             g.setColor(Color.red);
-            g.drawRect(imagePart.getSourceX(), imagePart.getSourceY(), partWidth, partHeight);
+            g.drawRect(minX, minY, maxX - minX, maxY - minY);
         });
 
         g.dispose();
@@ -130,7 +159,11 @@ public class ImageMakerSolution {
     }
 
     private BufferedImage cropImage(BufferedImage src, ImagePart imagePart) {
-        return src.getSubimage(imagePart.getSourceX(), imagePart.getSourceY(), partWidth, partHeight);
+        int minX = Math.max(imagePart.getSourceX(), 0);
+        int maxX = Math.min(imagePart.getSourceX() + partWidth, src.getWidth());
+        int minY = Math.max(imagePart.getSourceY(), 0);
+        int maxY = Math.min(imagePart.getSourceY() + partHeight, src.getHeight());
+        return src.getSubimage(minX, minY, maxX - minX, maxY - minY);
     }
 
 

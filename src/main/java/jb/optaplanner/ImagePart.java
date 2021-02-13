@@ -21,6 +21,7 @@ public class ImagePart {
     private Integer sourceY;
     private Integer targetX;
     private Integer targetY;
+    private Integer rotation;
 
     @PlanningVariable(valueRangeProviderRefs = {"sourceXRange"})
     public Integer getSourceX() {
@@ -59,6 +60,15 @@ public class ImagePart {
     }
 
     public boolean isFullyInitialised() {
-        return this.sourceX != null && this.sourceY != null & this.targetX != null && this.targetY != null;
+        return null != sourceX && null != sourceY & null != targetX && null != targetY && null != rotation;
+    }
+
+    @PlanningVariable(valueRangeProviderRefs = {"rotationRange"})
+    public Integer getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(Integer rotation) {
+        this.rotation = rotation;
     }
 }

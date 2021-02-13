@@ -31,7 +31,7 @@ public class GeneticImage {
 
     public static void main(String[] args) throws IOException {
         String targetImagePath = "C:\\Users\\jbritton\\OneDrive - Dotted Eyes Solutions Ltd T A Field Dynamics\\Pictures\\Jon_06.jpg";
-        String sourceImagePath = "C:\\Users\\jbritton\\OneDrive - Dotted Eyes Solutions Ltd T A Field Dynamics\\Pictures\\pigs.jpg";
+        String sourceImagePath = "C:\\Users\\jbritton\\OneDrive - Dotted Eyes Solutions Ltd T A Field Dynamics\\Pictures\\Untitled.jpg";
 
         BufferedImage targetImage = ImageIO.read(new File(targetImagePath));
         BufferedImage sourceImage = ImageIO.read(new File(sourceImagePath));
@@ -42,19 +42,14 @@ public class GeneticImage {
 
 
         EventQueue.invokeLater(() -> {
-//            try {
-//                ImageFrame frame = new ImageFrame(targetImage);
-                squaresFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                squaresFrame.setVisible(true);
+            squaresFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            squaresFrame.setVisible(true);
 
-                resultFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                resultFrame.setVisible(true);
+            resultFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            resultFrame.setVisible(true);
 
-                differenceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                differenceFrame.setVisible(true);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+            differenceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            differenceFrame.setVisible(true);
         });
 
         SolverFactory<ImageMakerSolution> solverFactory = SolverFactory.createFromXmlResource("imageMakerSolver.xml");
@@ -75,7 +70,7 @@ public class GeneticImage {
 
         List<ImagePart> imageParts = new ArrayList<>();
         Random random = new Random();
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 50; i++) {
             ImagePart imagePart = new ImagePart();
             imagePart.setSourceX(random.nextInt(sourceImage.getWidth() - solution.getPartWidth()));
             imagePart.setSourceY(random.nextInt(sourceImage.getHeight() - solution.getPartHeight()));
@@ -87,9 +82,6 @@ public class GeneticImage {
         solution.setImageParts(imageParts);
 
         solver.solve(solution);
-
-
-
 
     }
 
